@@ -1,28 +1,55 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import CryptoCurrencies from './CrytpoCurrencies'
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      highPrice: 100.0,
+      count: 10
+    }
+  }
+
+  updateHighPrice = event => {
+    this.setState({
+      highPrice: parseFloat(event.target.value)
+    })
+  }
+
+  updateCount = event => {
+    this.setState({
+      count: parseInt(event.target.value)
+    })
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <h1>Crypto Ticker</h1>
+        <h2>Highlight Prices over {this.state.highPrice}</h2>
+        <h2>Displaying {this.state.count} Currencies</h2>
+        <CryptoCurrencies highPrice={this.state.highPrice} />
+
+        <input
+          type="range"
+          min="0"
+          max="10000"
+          value={this.state.highPrice}
+          onChange={this.updateHighPrice}
+        />
+
+        <input
+          type="range"
+          min="5"
+          max="50"
+          value={this.state.count}
+          onChange={this.updateCount}
+        />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
