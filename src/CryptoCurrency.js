@@ -15,10 +15,18 @@ class CryptoCurrency extends Component {
     }
   }
 
+  handleIgnore = event => {
+    let currencyIdToIgnore = this.props.id
+    this.props.addCurrencyIdToIgnoredCoins(currencyIdToIgnore)
+  }
+
   render() {
     return (
       <tr className={this.classNameBasedOnPrice()}>
-        <td>{this.props.name}</td>
+        <td>
+          <button onClick={this.handleIgnore}>Ignore</button>
+          {this.props.name}
+        </td>
         <td>{this.props.symbol}</td>
         <td>{this.props.price}</td>
         <td>

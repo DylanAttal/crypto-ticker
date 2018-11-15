@@ -1,22 +1,32 @@
 import React, { Component } from 'react'
 import CryptoCurrency from './CryptoCurrency'
 import currencies from './currencies.json'
+import axios from 'axios'
 
 class CryptoCurrencies extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      coins: []
+      coins: [],
+      ignoredCoins: []
     }
   }
 
+  addCurrencyIdToIgnoredCoins = currencyId => {
+    let newIgnoredCoins = this.state.ignoredCoins
+    newIgnoredCoins.push(currencyId)
+    this.setState({
+      ignoredCoins: newIgnoredCoins
+    })
+  }
+
   fetchCoins = () => {
-    fetch(`https://api.coinmarketcap.com/v2/ticker/?limit=${this.state.count}`)
-      .then(resp => resp.json())
-      .then(apiData => {
+    axios
+      .get(`https://api.coinmarketcap.com/v2/ticker/?limit=${this.props.count}`)
+      .then(response => {
         this.setState({
-          coins: apiData['data']
+          coins: response.data['data']
         })
       })
   }
@@ -47,6 +57,9 @@ class CryptoCurrencies extends Component {
           </thead>
           <tbody>
             {Object.values(this.state.coins).map(currency => {
+              if (this.state.ignoredCoins.includes(currency.id)) {
+                return null
+              }
               return (
                 <CryptoCurrency
                   key={currency.id}
@@ -55,7 +68,7 @@ class CryptoCurrencies extends Component {
                   price={currency.quotes.USD.price.toFixed(2)}
                   id={currency.id}
                   highPrice={this.state.highPrice}
-                  count={this.state.count}
+                  addCurrencyIdToIgnoredCoins={this.addCurrencyIdToIgnoredCoins}
                 />
               )
             })}

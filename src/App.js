@@ -29,8 +29,11 @@ class App extends Component {
       <div>
         <h1>Crypto Ticker</h1>
         <h2>Highlight Prices over {this.state.highPrice}</h2>
-        <h2>Displaying {this.state.count} Currencies</h2>
-        <CryptoCurrencies highPrice={this.state.highPrice} />
+        <h2>Displaying {this.state.count} Currencies (wait a few seconds)</h2>
+        <CryptoCurrencies
+          highPrice={this.state.highPrice}
+          count={this.state.count}
+        />
 
         <input
           type="range"
