@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import CryptoCurrency from './CryptoCurrency'
-import currencies from './currencies.json'
 import axios from 'axios'
 
 class CryptoCurrencies extends Component {
@@ -67,7 +66,7 @@ class CryptoCurrencies extends Component {
                   symbol={currency.symbol}
                   price={currency.quotes.USD.price.toFixed(2)}
                   id={currency.id}
-                  highPrice={this.state.highPrice}
+                  highPrice={this.props.highPrice}
                   addCurrencyIdToIgnoredCoins={this.addCurrencyIdToIgnoredCoins}
                 />
               )

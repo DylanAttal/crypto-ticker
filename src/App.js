@@ -29,7 +29,10 @@ class App extends Component {
       <div>
         <h1>Crypto Ticker</h1>
         <h2>Highlight Prices over {this.state.highPrice}</h2>
-        <h2>Displaying {this.state.count} Currencies (wait a few seconds)</h2>
+        <h2>
+          Displaying {this.state.count} Currencies (wait a few seconds after
+          changing)
+        </h2>
         <CryptoCurrencies
           highPrice={this.state.highPrice}
           count={this.state.count}
@@ -38,7 +41,7 @@ class App extends Component {
         <input
           type="range"
           min="0"
-          max="10000"
+          max="8000"
           value={this.state.highPrice}
           onChange={this.updateHighPrice}
         />
